@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ham Radio Frequency Log</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ham Radio Frequency Log</h1>
+        <form id="freqForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="frequency" placeholder="Frequency (MHz)" required>
+            <input type="text" id="mode" placeholder="Mode (FM, AM, SSB, etc.)" required>
+            <input type="text" id="tone" placeholder="Tone (CTCSS/DCS)">
+            <input type="text" id="notes" placeholder="Notes">
+            <button type="submit">Add Frequency</button>
+        </form>
+        <div class="backup-buttons">
+            <button id="downloadBackup">Download Offline Backup</button>
+            <button id="uploadBackupButton">Upload Offline Backup</button>
+            <input type="file" id="uploadBackup" accept=".csv" style="display: none;">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Frequency (MHz)</th>
+                    <th>Mode</th>
+                    <th>Tone</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="freqTableBody"></tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
