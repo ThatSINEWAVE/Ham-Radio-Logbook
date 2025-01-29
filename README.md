@@ -4,6 +4,8 @@
 
 A simple, responsive web application for ham radio operators to log and manage their frequently used radio frequencies. Built with vanilla JavaScript and featuring a clean, dark-themed interface, this application runs entirely in the browser and uses local storage for data persistence.
 
+![Ham-Radio-Logbook](https://github.com/user-attachments/assets/35bee59b-420b-4cd6-acbb-917b90936a6a)
+
 </div>
 
 ## Features
