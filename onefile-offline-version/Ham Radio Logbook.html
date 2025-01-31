@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Frequency Logbook</title>
+    <style>
+      body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 60px;
+        box-sizing: border-box;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color: #666;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 14px;
+      }
+
+      .footer a {
+        color: #ff9800;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer a:hover {
+        color: #e68900;
+      }
+
+      .container {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        width: 90%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #ff9800;
+        margin-top: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #1e1e1e;
+        padding: 10px 0;
+      }
+
+      input,
+      button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+      }
+
+      input {
+        background-color: #2a2a2a;
+        color: #ffffff;
+      }
+
+      button {
+        background-color: #ff9800;
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #e68900;
+      }
+
+      .backup-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      /* Table container with scroll */
+      .table-container {
+        max-height: 60vh;
+        overflow-y: auto;
+        border-radius: 5px;
+        background-color: #1e1e1e;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #1e1e1e;
+      }
+
+      thead {
+        background-color: #333;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+
+      td,
+      th {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+      }
+
+      tr:nth-child(even) {
+        background-color: #222;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #2a2a2a;
+      }
+
+      td button {
+        background-color: #d32f2f;
+        padding: 5px 10px;
+        font-size: 14px;
+      }
+
+      td button:hover {
+        background-color: #b71c1c;
+      }
+
+      /* Scrollbar styling */
+      .table-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .table-container::-webkit-scrollbar-track {
+        background: #1e1e1e;
+      }
+
+      .table-container::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 4px;
+      }
+
+      .table-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      td .edit-btn,
+      td .delete-btn {
+        padding: 5px 10px;
+        font-size: 14px;
+        white-space: nowrap;
+        min-width: 60px;
+      }
+
+      .edit-btn {
+        background-color: #2196F3;
+        margin-right: 5px;
+      }
+
+      .edit-btn:hover {
+        background-color: #1976D2;
+      }
+
+      .delete-btn {
+        background-color: #d32f2f;
+      }
+
+      .delete-btn:hover {
+        background-color: #b71c1c;
+      }
+
+      /* Mobile-specific styles */
+      @media screen and (max-width: 600px) {
+
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        body {
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+          box-sizing: border-box;
+        }
+
+        .container {
+          margin: 0;
+          padding: 10px;
+          width: auto;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          min-height: 0;
+        }
+
+        h1 {
+          margin: 0 0 10px 0;
+          font-size: 24px;
+        }
+
+        form {
+          padding: 5px 0;
+          margin-bottom: 10px;
+        }
+
+        input,
+        button {
+          font-size: 14px;
+          padding: 8px;
+        }
+
+        .backup-buttons {
+          margin-bottom: 10px;
+        }
+
+        .table-container {
+          flex: 1;
+          overflow-y: auto;
+          min-height: 0;
+          margin-bottom: 10px;
+        }
+
+        table {
+          font-size: 14px;
+        }
+
+        td,
+        th {
+          padding: 8px 4px;
+        }
+
+        td:last-child {
+          white-space: nowrap;
+          padding-right: 8px;
+        }
+
+        td .edit-btn,
+        td .delete-btn {
+          padding: 4px 8px;
+          font-size: 12px;
+          min-width: 50px;
+        }
+
+        .footer {
+          position: static;
+          padding: 8px 0;
+          font-size: 12px;
+          margin-top: auto;
+        }
+      }
+
+      /* Very small screens */
+      @media screen and (max-width: 400px) {
+        h1 {
+          font-size: 20px;
+        }
+
+        td .edit-btn,
+        td .delete-btn {
+          padding: 3px 6px;
+          font-size: 11px;
+          min-width: 40px;
+        }
+
+        td:last-child {
+          padding-right: 4px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Radio Frequency Logbook</h1>
+      <form id="freqForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="frequency" placeholder="Frequency (MHz)" required>
+        <input type="text" id="mode" placeholder="Mode (FM, AM, SSB, etc.)" required>
+        <input type="text" id="tone" placeholder="Tone (CTCSS/DCS)">
+        <input type="text" id="notes" placeholder="Notes">
+        <button type="submit">Add Frequency</button>
+      </form>
+      <div class="backup-buttons">
+        <button id="downloadBackup">Download Offline Backup</button>
+        <button id="uploadBackupButton">Upload Offline Backup</button>
+        <input type="file" id="uploadBackup" accept=".csv" style="display: none;">
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Frequency</th>
+              <th>Mode</th>
+              <th>Tone</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="freqTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <footer class="footer"> Created by <a href="https://github.com/ThatSINEWAVE" target="_blank">ThatSINEWAVE</a>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const freqForm = document.getElementById("freqForm");
+        const freqTableBody = document.getElementById("freqTableBody");
+        const downloadBackupButton = document.getElementById("downloadBackup");
+        const uploadBackupButton = document.getElementById("uploadBackupButton");
+        const uploadBackupInput = document.getElementById("uploadBackup");
+        let editingIndex = -1; // Track which frequency is being edited
+        function loadFrequencies() {
+          freqTableBody.innerHTML = "";
+          const frequencies = JSON.parse(localStorage.getItem("frequencies")) || [];
+          frequencies.forEach((freq, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+
+											<td>${freq.name}</td>
+											<td>${freq.frequency}</td>
+											<td>${freq.mode}</td>
+											<td>${freq.tone}</td>
+											<td>${freq.notes}</td>
+											<td>
+												<button onclick="editFrequency(${index})" class="edit-btn">Edit</button>
+												<button onclick="deleteFrequency(${index})" class="delete-btn">Delete</button>
+											</td>
+                    `;
+            freqTableBody.appendChild(row);
+          });
+        }
+
+        function saveFrequency(event) {
+          event.preventDefault();
+          const name = document.getElementById("name").value;
+          const frequency = document.getElementById("frequency").value;
+          const mode = document.getElementById("mode").value;
+          const tone = document.getElementById("tone").value;
+          const notes = document.getElementById("notes").value;
+          const newFreq = {
+            name,
+            frequency,
+            mode,
+            tone,
+            notes
+          };
+          const frequencies = JSON.parse(localStorage.getItem("frequencies")) || [];
+          if (editingIndex >= 0) {
+            // Update existing frequency
+            frequencies[editingIndex] = newFreq;
+            editingIndex = -1;
+            document.querySelector('button[type="submit"]').textContent = "Add Frequency";
+          } else {
+            // Add new frequency
+            frequencies.push(newFreq);
+          }
+          localStorage.setItem("frequencies", JSON.stringify(frequencies));
+          freqForm.reset();
+          loadFrequencies();
+        }
+        window.editFrequency = function(index) {
+          const frequencies = JSON.parse(localStorage.getItem("frequencies")) || [];
+          const freq = frequencies[index];
+          // Populate form fields
+          document.getElementById("name").value = freq.name;
+          document.getElementById("frequency").value = freq.frequency;
+          document.getElementById("mode").value = freq.mode;
+          document.getElementById("tone").value = freq.tone;
+          document.getElementById("notes").value = freq.notes;
+          // Change button text and store editing index
+          document.querySelector('button[type="submit"]').textContent = "Update Frequency";
+          editingIndex = index;
+          // Scroll to form
+          freqForm.scrollIntoView({
+            behavior: 'smooth'
+          });
+        };
+        window.deleteFrequency = function(index) {
+          const frequencies = JSON.parse(localStorage.getItem("frequencies")) || [];
+          frequencies.splice(index, 1);
+          localStorage.setItem("frequencies", JSON.stringify(frequencies));
+          loadFrequencies();
+        };
+
+        function downloadBackup() {
+          const frequencies = JSON.parse(localStorage.getItem("frequencies")) || [];
+          let csvContent = "data:text/csv;charset=utf-8,Name,Frequency,Mode,Tone,Notes\n";
+          csvContent += frequencies.map(freq => `${freq.name},${freq.frequency},${freq.mode},${freq.tone},${freq.notes}`).join("\n");
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", "ham_radio_frequencies_backup.csv");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+
+        function triggerFileUpload() {
+          uploadBackupInput.click();
+        }
+
+        function uploadBackup(event) {
+          const file = event.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const csvContent = e.target.result;
+            const lines = csvContent.split("\n").slice(1); // Skip header
+            const frequencies = lines.map(line => {
+              const [name, frequency, mode, tone, notes] = line.split(",");
+              return {
+                name,
+                frequency,
+                mode,
+                tone,
+                notes
+              };
+            }).filter(freq => freq.name); // Filter out empty rows
+            localStorage.setItem("frequencies", JSON.stringify(frequencies));
+            loadFrequencies();
+          };
+          reader.readAsText(file);
+        }
+        freqForm.addEventListener("submit", saveFrequency);
+        downloadBackupButton.addEventListener("click", downloadBackup);
+        uploadBackupButton.addEventListener("click", triggerFileUpload);
+        uploadBackupInput.addEventListener("change", uploadBackup);
+        loadFrequencies();
+      });
+    </script>
+  </body>
+</html>
