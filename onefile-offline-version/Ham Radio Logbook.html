@@ -10,10 +10,9 @@
         color: #ffffff;
         font-family: Arial, sans-serif;
         margin: 0;
-        padding: 20px;
         min-height: 100vh;
         position: relative;
-        padding-bottom: 60px;
+        padding: 20px 20px 60px;
         box-sizing: border-box;
       }
 
@@ -42,7 +41,7 @@
         background-color: #1e1e1e;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         width: 90%;
         max-width: 1000px;
         margin: 0 auto;
@@ -291,11 +290,11 @@
     <div class="container">
       <h1>Radio Frequency Logbook</h1>
       <form id="freqForm">
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="text" id="frequency" placeholder="Frequency (MHz)" required>
-        <input type="text" id="mode" placeholder="Mode (FM, AM, SSB, etc.)" required>
-        <input type="text" id="tone" placeholder="Tone (CTCSS/DCS)">
-        <input type="text" id="notes" placeholder="Notes">
+        <label for="name"></label><input type="text" id="name" placeholder="Name" required>
+        <label for="frequency"></label><input type="text" id="frequency" placeholder="Frequency (MHz)" required>
+        <label for="mode"></label><input type="text" id="mode" placeholder="Mode (FM, AM, SSB, etc.)" required>
+        <label for="tone"></label><input type="text" id="tone" placeholder="Tone (CTCSS/DCS)">
+        <label for="notes"></label><input type="text" id="notes" placeholder="Notes">
         <button type="submit">Add Frequency</button>
       </form>
       <div class="backup-buttons">
